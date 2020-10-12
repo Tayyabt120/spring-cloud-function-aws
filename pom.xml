@@ -6,7 +6,7 @@
 
     <groupId>com.demo.springfunctions.aws</groupId>
     <artifactId>spring-cloud-functions-aws</artifactId>
-    <version>2.0-SNAPSHOT</version>
+    <version>1.0.4-SNAPSHOT</version>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -21,6 +21,7 @@
     </properties>
 
     <dependencies>
+        <!--    VENDER SPECIFIC DEPENDENCIES    -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-function-adapter-aws</artifactId>
@@ -36,6 +37,18 @@
             <version>1.1.0</version>
             <scope>provided</scope>
         </dependency>
+
+        <!--Spring Boot based dependencies-->
+        <!--<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-function-web</artifactId>
+        </dependency>-->
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -45,7 +58,7 @@
         <dependency>
             <groupId>com.serverless.businesslogic</groupId>
             <artifactId>business-logic</artifactId>
-            <version>0.0.1</version>
+            <version>1.0.2</version>
         </dependency>
     </dependencies>
 
@@ -62,12 +75,12 @@
     </dependencyManagement>
 
     <build>
-        <plugins>
+       <!-- <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <dependencies>
-                    <!-- https://mvnrepository.com/artifact/org.springframework.boot.experimental/spring-boot-thin-layout -->
+                    &lt;!&ndash; https://mvnrepository.com/artifact/org.springframework.boot.experimental/spring-boot-thin-layout &ndash;&gt;
                     <dependency>
                         <groupId>org.springframework.boot.experimental</groupId>
                         <artifactId>spring-boot-thin-layout</artifactId>
@@ -79,6 +92,36 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
+                <configuration>
+                    <createDependencyReducedPom>false</createDependencyReducedPom>
+                    <shadedArtifactAttached>true</shadedArtifactAttached>
+                    <shadedClassifierName>aws</shadedClassifierName>
+                </configuration>
+            </plugin>
+        </plugins>-->
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.springframework.boot.experimental</groupId>
+                        <artifactId>spring-boot-thin-layout</artifactId>
+                        <version>1.0.25.RELEASE</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.4</version>
                 <configuration>
                     <createDependencyReducedPom>false</createDependencyReducedPom>
                     <shadedArtifactAttached>true</shadedArtifactAttached>
